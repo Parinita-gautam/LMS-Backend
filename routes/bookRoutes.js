@@ -1,13 +1,13 @@
 import express from "express";
 
 import { getBookController,createBookController, updateBookController, deleteBookController } from "../Controllers/bookControllers.js";
+import { checkAuthorization } from "../middleware/checkAuthorization.js";
+
 const bookRouter = express.Router();
-
-
 
 bookRouter
 .route('/')
-.get(getBookController).post(createBookController);
+.get(checkAuthorization,getBookController).post(createBookController);
 
 
 bookRouter
