@@ -13,7 +13,16 @@ export const registerUser= async(req,res) => {
                 message:`user with email ${reqBody.email}already exist`,
             })
         }
-        const newUser =await userModel.create(reqBody);
+
+        const newuserInfo = {
+          email: reqBody.email,
+          phoneNumber: reqBody.phoneNumber,
+          password: reqBody.password,
+          address: reqBody.address,
+          name: reqBody.name,
+        };
+  
+        const newUser = await userModel.create(newUserInfo);
 
 return res.json({
     sucess:true,
