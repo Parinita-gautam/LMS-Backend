@@ -1,10 +1,22 @@
-import { userModel } from "../models/userModel.js";
+import { userModel, validateUserSchema } from "../models/userModel.js";
 import { generateToken } from "../utils/generateToken.js";
+
 
 export const registerUser= async(req,res) => {
 
     try {
         const reqBody = req.body;
+
+        const validateUser =validateUserSchema.validate(reqBody);
+        if (validateUser.error){
+          return res.json({
+            success:false,
+          message: validateUser.error.message,
+        })
+        }
+
+        console.log(validateUserSchema.validate(reqBody));
+
         const foundUser = await userModel.find({email: reqBody.email});
 
         if(foundUser.length>0){
@@ -14,15 +26,15 @@ export const registerUser= async(req,res) => {
             })
         }
 
-        const newuserInfo = {
-          email: reqBody.email,
-          phoneNumber: reqBody.phoneNumber,
-          password: reqBody.password,
-          address: reqBody.address,
-          name: reqBody.name,
-        };
+        // const newuserInfo = {
+        //   email: reqBody.email,
+        //   phoneNumber: reqBody.phoneNumber,
+        //   password: reqBody.password,
+        //   address: reqBody.address,
+        //   name: reqBody.name,
+        // };
   
-        const newUser = await userModel.create(newUserInfo);
+        const newUser = await userModel.create(validateUser.value);
 
 return res.json({
     sucess:true,

@@ -12,5 +12,8 @@ const bookSchema =new mongoose.Schema({
 
 
 });
+// 
+// datbase constraints
+// jai validation on create route
 
 export const BookModel =mongoose.model("books",bookSchema);

@@ -2,7 +2,7 @@ import express from "express";
 
 import { getBookController,createBookController, updateBookController, deleteBookController } from "../Controllers/bookControllers.js";
 import { checkAuthorization } from "../middleware/checkAuthorization.js";
-import { checkStaffLevelPermissions } from "../middleware/CheckPermissions.js";
+import { checkStaffLevelPermissions } from "../middleware/checkPermission.js";
 
 const bookRouter = express.Router();
 
